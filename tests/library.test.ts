@@ -28,4 +28,32 @@ describe("Library Management System",()=>{
         library.addBook(book1);
         expect(()=>library.addBook(book2)).toThrow('Book with this ISBN already exists');
     })
+
+    it("should borrow a book if it is available", () => {
+        const book= new Book('1','2 States','Chetan Bhagat',2009);
+        library.addBook(book);
+    
+        // Borrow the book (in borrowing the book we provide the isbn no. as it is unique)
+        library.borrowBook('1');
+    
+        // Check that the borrowed book is no longer available in the library
+        expect(library.getAvailableBooks()).not.toContain(book);
+    });
+
+    it("should throw an error if the book is unavailable", () => {
+        const book= new Book('1','2 States','Chetan Bhagat',2009);
+        library.addBook(book);
+        library.borrowBook('1');
+
+        //Trying to borrow a book that's unavailable because it is already been borrowed should throw an error
+        expect(() => library.borrowBook('1')).toThrow('Book is not available');
+    });
+
+    it('should throw an error when trying to borrow a book that does not exist', () => {
+        const book= new Book('1','2 States','Chetan Bhagat',2009);
+        library.addBook(book);
+
+        //Trying to borrow a book thatis not present in the library 
+        expect(() => library.borrowBook('3')).toThrow('Book not found');
+    });
 });
