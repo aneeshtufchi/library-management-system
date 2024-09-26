@@ -75,4 +75,29 @@ describe("Library Management System",()=>{
         //Trying to return a book that was never present in library
         expect(() => library.returnBook('3')).toThrow('Book not found');
     });
+
+    it("should return a list of all available books", () => {
+        // Add multiple books to the library
+        const book1= new Book('1','2 States','Chetan Bhagat',2009);
+        const book2= new Book('2','Three Men in a Boat','Jerome',1889);
+        const book3 = new Book('3', 'Modern Physics', 'Einestein',1930);
+        
+        library.addBook(book1);
+        library.addBook(book2);
+        library.addBook(book3);
+
+        // Get the available books
+        const availableBooks = library.getAvailableBooks();
+
+        // Check that the list of available books is correct
+        expect(availableBooks.length).toBe(3); // Ensure there are 3 available books
+        expect(availableBooks).toEqual([book1, book2, book3]); // Ensure  that the books are the same
+    });
+
+    it("should return an empty list when there are no available books", () => {
+
+        // Check available books when the library is empty
+        const availableBooks = library.getAvailableBooks();
+        expect(availableBooks.length).toBe(0); // Ensure the list is empty
+    });
 });
