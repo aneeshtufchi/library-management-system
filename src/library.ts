@@ -10,9 +10,6 @@ export class Library{
         }
         this.books.push(book);
     }
-    getAvailableBooks():Book[]{
-        return this.books.filter(book=>book.getIsAvailable());
-    }
 
     borrowBook(isbn: string) {
         const book = this.books.find(b => b.getIsbn() === isbn);
@@ -31,6 +28,10 @@ export class Library{
           throw new Error('Book not found');
         }
         book.setIsAvailable(true);
+    }
+
+    getAvailableBooks():Book[]{
+        return this.books.filter(book=>book.getIsAvailable());
     }
 
 };
