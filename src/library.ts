@@ -25,5 +25,12 @@ export class Library{
         book.setIsAvailable(false);
     }
     
+    returnBook(isbn: string) {
+        const book = this.books.find(b => b.getIsbn() === isbn);
+        if (!book) {
+          throw new Error('Book not found');
+        }
+        book.setIsAvailable(true);
+    }
 
 };
