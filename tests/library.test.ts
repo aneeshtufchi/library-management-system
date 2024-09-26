@@ -56,4 +56,23 @@ describe("Library Management System",()=>{
         //Trying to borrow a book thatis not present in the library 
         expect(() => library.borrowBook('3')).toThrow('Book not found');
     });
+
+    it("should return a borrowed book", () => {
+        const book= new Book('1','2 States','Chetan Bhagat',2009);
+        library.addBook(book);
+        library.borrowBook('1');
+        library.returnBook('1');
+    
+        //Check that the book is now available again in the library
+        expect(library.getAvailableBooks()).toContain(book);
+    });
+
+    it('should throw an error when returning a book that does not exist in the library', () => {
+        const book= new Book('1','2 States','Chetan Bhagat',2009);
+        library.addBook(book);
+        library.borrowBook('1');
+
+        //Trying to return a book that was never present in library
+        expect(() => library.returnBook('3')).toThrow('Book not found');
+    });
 });
