@@ -14,4 +14,16 @@ export class Library{
         return this.books.filter(book=>book.getIsAvailable());
     }
 
+    borrowBook(isbn: string) {
+        const book = this.books.find(b => b.getIsbn() === isbn);
+        if (!book) {
+          throw new Error('Book not found');
+        }
+        if (!book.getIsAvailable()) {
+          throw new Error('Book is not available');
+        }
+        book.setIsAvailable(false);
+    }
+    
+
 };
